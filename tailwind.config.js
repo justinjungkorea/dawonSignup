@@ -10,7 +10,10 @@ export default {
       colors: {
         'dawon-navy': '#13294B',
         'dawon-red':  '#C8102E',
-      }
+      },
+      fontFamily: {
+        sans: ['GmarketSans', 'sans-serif'],
+      },
     },
   },
   plugins: [forms],

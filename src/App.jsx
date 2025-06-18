@@ -22,7 +22,8 @@ function App() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (name === 'phone') {
-      setFormData((prev) => ({ ...prev, phone: formatPhone(value) }));
+      const formatted = formatPhone(value);
+      setFormData((prev) => ({ ...prev, phone: formatted }));
     } else if (type === 'checkbox') {
       setFormData((prev) => ({ ...prev, [name]: checked }));
     } else {
@@ -71,20 +72,22 @@ function App() {
             type="text"
             name="name"
             placeholder="이름"
+            autoComplete="off"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full p-3 border rounded-lg bg-white text-dawon-navy placeholder-gray-400 focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 ring-red-300' : 'border-dawon-navy focus:ring-dawon-navy'}`}
+            className={`appearance-none autofill:!bg-white w-full p-3 border rounded-lg text-dawon-navy bg-white placeholder-gray-400 focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 ring-red-300' : 'border-dawon-navy focus:ring-dawon-navy'}`}
           />
 
           <input
-            type="tel"
+            type="text"
             inputMode="numeric"
             name="phone"
             maxLength={13}
+            autoComplete="off"
             placeholder="010-1234-5678 또는 02-123-4567"
             value={formData.phone}
             onChange={handleChange}
-            className={`w-full p-3 border rounded-lg bg-white text-dawon-navy placeholder-gray-400 focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-500 ring-red-300' : 'border-dawon-navy focus:ring-dawon-navy'}`}
+            className={`appearance-none autofill:!bg-white w-full p-3 border rounded-lg text-dawon-navy bg-white placeholder-gray-400 focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-500 ring-red-300' : 'border-dawon-navy focus:ring-dawon-navy'}`}
           />
 
           <div className="flex space-x-6 items-center">
@@ -158,18 +161,19 @@ function App() {
             생년월일을 입력하시면 생일 쿠폰을 발송해드립니다
           </p>
 
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="terms"
-              name="terms"
-              checked={formData.terms}
-              onChange={handleChange}
-              className={`form-checkbox text-dawon-navy ${errors.terms ? 'ring-2 ring-red-400' : ''}`}
-            />
-            <label htmlFor="terms" className="ml-2 text-sm text-dawon-navy">
-              개인정보 수집 및 이용에 동의합니다.<br/>(1년 이상 미이용 시 자동 삭제)
+          <div className="flex flex-col gap-0.5 text-sm text-dawon-navy">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                id="terms"
+                name="terms"
+                checked={formData.terms}
+                onChange={handleChange}
+                className={`form-checkbox text-dawon-navy mr-2 ${errors.terms ? 'ring-2 ring-red-400' : ''}`}
+              />
+              개인정보 수집 및 이용에 동의합니다.
             </label>
+            <span className="pl-6 text-xs">(1년 이상 미이용 시 자동 삭제)</span>
           </div>
 
           <button
