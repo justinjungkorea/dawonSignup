@@ -48,16 +48,28 @@ function App() {
       return;
     }
 
-    const res = await fetch('https://script.google.com/macros/s/AKfycby7YQWq5m0SI9WbScJerPXDQ6U-EodfpvQusZpviDLIgMNfS3LRwrGPZRQdD7zKzfUY/exec', {
+    if(formData.birthDay){
+      const birthDay = new Date(`${formData.birthYear}-${formData.birthMonth}-${formData.birthDay}`);
+      const formattedDate = birthDay.toISOString().split('T')[0];
+
+      formData.birth = formattedDate;
+    }
+    else {
+      formData.birth = " ";
+    }
+
+    const res = await fetch('https://script.google.com/macros/s/AKfycbweZhki18FYYH44MOX9rtXWNKDN1xc6_S2dVwj-3A5nrzBA9z5nQoMYlJGAjNhGi7Pf/exec', {
         method: 'POST',
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       const result = await res.json();
+      console.log(result);
       if (result.result === 'success') {
         alert("회원 가입이 완료되었습니다!");
       } else {
         alert("에러가 발생하였습니다!");
+        console.log(result);
       }
   };
 
@@ -104,8 +116,8 @@ function App() {
               <input
                 type="radio"
                 name="gender"
-                value="male"
-                checked={formData.gender === 'male'}
+                value="남성"
+                checked={formData.gender === '남성'}
                 onChange={handleChange}
                 className={`form-radio text-dawon-navy ${errors.gender ? 'ring-2 ring-red-400' : ''}`}
               />
@@ -115,8 +127,8 @@ function App() {
               <input
                 type="radio"
                 name="gender"
-                value="female"
-                checked={formData.gender === 'female'}
+                value="여성"
+                checked={formData.gender === '여성'}
                 onChange={handleChange}
                 className={`form-radio text-dawon-navy ${errors.gender ? 'ring-2 ring-red-400' : ''}`}
               />
