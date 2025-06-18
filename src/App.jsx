@@ -33,7 +33,7 @@ function App() {
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, phone, gender, terms } = formData;
     const newErrors = {};
@@ -48,8 +48,17 @@ function App() {
       return;
     }
 
-    console.log('Form Data:', formData);
-    alert('회원가입이 완료되었습니다!');
+    const res = await fetch('https://script.google.com/macros/s/AKfycby7YQWq5m0SI9WbScJerPXDQ6U-EodfpvQusZpviDLIgMNfS3LRwrGPZRQdD7zKzfUY/exec', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await res.json();
+      if (result.result === 'success') {
+        alert("회원 가입이 완료되었습니다!");
+      } else {
+        alert("에러가 발생하였습니다!");
+      }
   };
 
   return (
