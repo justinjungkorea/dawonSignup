@@ -168,7 +168,7 @@ function App() {
               className={`form-checkbox text-dawon-navy ${errors.terms ? 'ring-2 ring-red-400' : ''}`}
             />
             <label htmlFor="terms" className="ml-2 text-sm text-dawon-navy">
-              개인정보 수집 및 이용에 동의합니다. (1년 이상 미이용 시 자동 삭제)
+              개인정보 수집 및 이용에 동의합니다.<br/>(1년 이상 미이용 시 자동 삭제)
             </label>
           </div>
 
